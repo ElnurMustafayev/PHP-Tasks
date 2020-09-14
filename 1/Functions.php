@@ -106,8 +106,8 @@
             $result = [];
 
             foreach ($arr as $item) {
-                // if item is array
-                if(gettype($item) == "array") {
+                // fix: better way to check is array
+                if(is_array($item)) {
                     // recursion
                     foreach (Functions::NormilizeArray($item) as $el)
                         // add each item in result array
@@ -130,6 +130,9 @@
          * @return int              number of vowel letters
          */ 
         static function GetVowelCount(string $str) : int {
+            // fix: convert azeri chars
+            $str = Functions::ConvertToUrl($str);
+
             // regex pattern
             $pattern = '/[aieuo]/i';
 
@@ -146,7 +149,7 @@
          */ 
         static function ConvertToUrl(string $str) : string {
             // to lower case
-            $str = strtolower($str);
+            $str = mb_strtolower($str); // fix: mb_function for utf-8 chars
 
             // prepare arrays for converting to assoc array
             $aze    =   ["ə", "ı", "ş", "ü", "ö", "ğ", "ç"];

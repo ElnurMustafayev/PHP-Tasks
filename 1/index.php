@@ -12,7 +12,7 @@
     // TASK 2. Azərbaycan dilində yazılmış istənilən sözdəki
     // hecaların sayını tapan funksiya.
 
-    $str = "Some text to check function";
+    $str = "Azərbaycan! Əli!";
     $vowel_count = Functions::GetVowelCount($str);
 
     
@@ -23,7 +23,7 @@
     // ingilis alternativləri (e, i, u, s, … ) ilə əvəzləməlidir. Boşluqları isə altxətlə
     // ( _ ). Tire (-) xaric digər bütün simvollar silinməlidir.
     
-    $str = "AzəRba,,,ycAn əli.fbası!";
+    $str = "Azərbaycan! Əli!";
     $url = Functions::ConvertToUrl($str);
 
 
@@ -38,7 +38,7 @@
 
     // TASK 5. Azərbaycan dilində yazılmış sözü tərsinə çevirən funksiya.
 
-    $str = "Azərbaycan əlifbası";
+    $str = "Əli";
     $reverse = Functions::Reverse($str);
 
 
