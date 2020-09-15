@@ -98,11 +98,14 @@
          * @return int                  count of days between to dates
          */
         static public function DateResidual(string $date1_str, string $date2_str) : int {
+            // https://www.php.net/manual/en/class.datetime.php
 
-            $date1 = new DateTime(date("Y-m-d", strtotime($date1_str)));
-            $date2 = new DateTime(date("Y-m-d", strtotime($date2_str)));
+            $start = new DateTime($date1_str);
+            $end = new DateTime($date2_str);
 
-            return date_diff($date1, $date2)->days;
+            // fix: use Datetime function
+            // "%a" - format $DateInterval to $daysCount
+            return $start->diff($end)->format("%a");
         }
         
         /** Task 4
@@ -135,11 +138,13 @@
          */
         static public function IsPrime(int $num) : bool {
             // 0, 1 - are not prime numbers
-            if($num == 0 || $num == 1)
+            // fix: '===' - better solution
+            if($num === 0 || $num === 1)
                 return false;
 
             // check is prime
-            for ($i=2; $i < $num / 2; $i++)
+            // fix: a much better and faster algorithm
+            for ($i=2; $i <= sqrt($num); $i++)
                 if($num % $i == 0)
                     return false;
 
