@@ -15,29 +15,30 @@
          * @return  array   false - if something went wrong
          */
         function GetUsers() {
-            $users = [];
+            $users = null;
 
             // if filepath is true
             if(file_exists($this->_fpath)) {
 
-            //if file is not empty
-                if(filesize($this->_fpath) > 0) {
-                    // open read
-                    $file = fopen($this->_fpath, "r");
-                    // read all users
-                    $JSON = fread($file, filesize($this->_fpath));
-                    // convert to assoc arr
-                    $users = json_decode($JSON, true);
-                    // dispose
-                    fclose($file);
-                }
+                // open read
+                $file = fopen($this->_fpath, "r");
+
+                // read all users
+                $real_fs = filesize($this->_fpath);
+                $temp_fs = $real_fs === 0 ? 50 : $real_fs;
+                $JSON = fread($file, $temp_fs);
+
+                // convert to assoc arr
+                $users = json_decode($JSON, true);
+
+                // dispose
+                fclose($file);
             }
 
-            // false if something went wrong
-            return $users; // null
+            return $users ?? [];
         }
-        
-        /**
+
+        /** Task 1
          * Add password in file
          *
          * @param  string $userid       user's id
@@ -53,7 +54,7 @@
             if(file_exists($this->_fpath)) {
 
                 // if password exists
-                if(!Functions::array_value_exists($newpassword, $users)) {
+                if(!in_array($newpassword, $users)) {
 
                     // add or edit user
                     $users[$userid] = $newpassword;

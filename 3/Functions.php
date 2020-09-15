@@ -4,7 +4,6 @@
 
     class Functions {
         
-
         /**
          * Generate 32 size Guid string
          *
@@ -15,16 +14,26 @@
                 ? com_create_guid() 
                 : strtoupper(md5(uniqid(rand(), true)));
         }
-        
-        static public function array_value_exists($needle, array $arr) : bool {
-            foreach ($arr as $key => $value) 
-                // 123 == "123" => true
-                if($value == $needle)
-                    return true;
 
-            return false;
+
+
+        /** Task 2
+         * Encrypt/Decrypt password
+         *
+         * @param  string $id           user's id
+         * @param  string $password     user's password
+         * @return string               encrypted/decrypted password
+         */
+        static public function EncryptUserPassword(string $id, string $password) : string {
+            $result = "";
+            $keys = str_split($id);
+            $chars = str_split($password);
+
+            for ($i=0; $i < strlen($password); $i++)
+                $result .= $chars[$i] ^ $keys[$i % strlen($id)];
+
+            return $result;
         }
-
                 
         /** Task 3
          * Check if email input correctly

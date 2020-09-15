@@ -11,13 +11,13 @@
     // A istifadəçisi şifrəsini “salam1” qoyub, B istifadəçisi də “salam1” yazarsa, sistem həmin 
     // şifrəni fayla əlavə etməyəcək və istifadəçiyə şifrəni dəyişməli olduğu bildirəcək.
     
-    /*
     $user1 = new User();
     $user2 = new User();
 
+    $user1->AddPassword("Secret123");   // this password already exists in .json file
     $user2->AddPassword("Qwerty777");
-    $user1->AddPassword("Secret123");
-    */
+
+
 
     // TASK 2. İstifadəçi şifrə yazır, sistem onu md5 halına çevirir. Amma, md5-də belə bir məsələ var ki, 
     // eyni sözlərin md5-i eyni olur. Bunu task1-dən də anlayırıq. Ona görə də elə etmək lazımdır ki, bu 
@@ -27,13 +27,18 @@
     // də şifrəsini qırmış olacaq. Ona görə də biz elə etməliyik ki, eyni şifrələr belə hər saniyə fərqli md5 
     // qaytarsın geriyə.
 
-    // code...
+    $user1 = new User();
+    $user2 = new User();
+
+    $encrypted = $user1->EncryptPassword("Qwerty123");
+    $decrypted = $user1->EncryptPassword($encrypted);
 
 
 
     // TASK 3. Funksiya daxil olmuş emailin düzgün formatda olub, olmadığını deməlidi.
 
     $email = "test@gmail.com";
+
     $answer1 = Functions::EmailCheck($email);
     $answer2 = Functions::EmailCheck("something.wrong@");
 
