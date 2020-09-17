@@ -28,7 +28,7 @@
          * @param  string   $data_type      str | int for request's data type check
          * @return mixed                    $data_type typed request value or $default
          */
-        public static function get($key, $default = "default", $data_type = "str") {
+        public static function get($key, $default = "", $data_type = "str") {
             // return $default if null or empty
             if(!isset($_GET[$key]) || empty($_GET[$key]))
                 return $default;
@@ -48,7 +48,7 @@
          * @param  string   $data_type      str | int for request's data type check
          * @return mixed                    $data_type typed request value or $default
          */
-        public static function post($key, $default = "default", $data_type = "str") {
+        public static function post($key, $default = "", $data_type = "str") {
             // return $default if null or empty
             if(!isset($_POST[$key]) || empty($_POST[$key]))
                 return $default;
@@ -58,6 +58,51 @@
 
             // return value
             return $security ?: $default;
+        }
+
+        // Aliases
+        /**
+         * POST request with a integer return value
+         *
+         * @param  string   $key            request's key. $_GET[$key]
+         * @param  mixed    $default        value to return if the request didn't pass security filters
+         * @return mixed                    integer request value or $default
+         */
+        public static function getInt($key, $default = "") {
+            return Request::get($key, $default, "int");
+        }
+
+        /**
+         * POST request with a string return value
+         *
+         * @param  string   $key            request's key. $_GET[$key]
+         * @param  mixed    $default        value to return if the request didn't pass security filters
+         * @return mixed                    string request value or $default
+         */
+        public static function getStr($key, $default = "") {
+            return Request::get($key, $default, "str");
+        }
+
+        /**
+         * POST request with a integer return value
+         *
+         * @param  string   $key            request's key. $_POST[$key]
+         * @param  mixed    $default        value to return if the request didn't pass security filters
+         * @return mixed                    integer request value or $default
+         */
+        public static function postInt($key, $default = "") {
+            return Request::post($key, $default, "int");
+        }
+
+        /**
+         * POST request with a string return value
+         *
+         * @param  string   $key            request's key. $_POST[$key]
+         * @param  mixed    $default        value to return if the request didn't pass security filters
+         * @return mixed                    string request value or $default
+         */
+        public static function postStr($key, $default = "") {
+            return Request::post($key, $default, "str");
         }
 
     }
